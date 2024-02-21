@@ -19,50 +19,46 @@ follows, enclosed in backticks:
     "@context": "http://schema.org",
     "@type": "VisualArtwork",
     "@id": "https://origintrail.io/images/otworld/b0645ab1219ee33.jpg",
-    "name": "Lyxen Demons #1108",
-    "description": "Lyxifer in OriginTrail suit",
-    "artform": "LSP8 PFP",
+    "name": "",
+    "description": "",
+    "artform": "",
     "author": {
       "@type": "Person",
-      "name": "CanvasLand &amp; Jhue"
+      "name": ""
     },
     "image": "https://origintrail.io/images/otworld/b0645ab1219ee33.jpg",
     "keywords": [
-      "anime style",
-      "character",
-      "blue hair",
-      "elf ears",
-      "digital art"
+      "",
     ],
     "publisher": {
       "@type": "Person",
-      "name": "CanvasLandWeb3"
+      "name": ""
     },
     "additionalProperty": [
       {
         "@type": "PropertyValue",
         "name": "background",
-        "value": "OnyxShadow"
+        "value": ""
       },
       {
         "@type": "PropertyValue",
         "name": "skin",
-        "value": "Lyxifer"
+        "value": ""
       },
       {
         "@type": "PropertyValue",
         "name": "eyes",
-        "value": "Intense"
+        "value": ""
       },
       {
         "@type": "PropertyValue",
         "name": "attires",
-        "value": "OriginTrail"
+        "value": ""
       },
       {
         "@type": "PropertyValue",
         "name": "hair",
-        "value": "Trunk"
+        "value": ""
       }
     ]
   }
@@ -71,10 +67,12 @@ follows, enclosed in backticks:
 This schema is focused on artworks and includes various properties such as the artist, description, art form and author, among others.
 There are other instances of this schema which you'll need to account for, as this isn't the only one, so don't use its values literally
 and try to match parts of the prompt to additionalValues if possible. If a specific term is requested, try to match it to a field by using contains.
+If a specific term is in plural, try to match it to a field by using contains for singular form and contains for plural form. Also, try to match it
+to the keyword array.
 
 Instructions:
 Use only the node types and properties provided in the schema.
-Do not use any node types and properties that are not explicitly provided. Use only the provided VisualArtwork schema and do not use schema.org definitions.
+Do not use any node types and properties that are not explicitly provided. Use only the provided VisualArtwork schema. Do not use schema.org definitions.
 Include all necessary prefixes.
 Note: Be as concise as possible.
 Do not include any explanations or apologies in your responses.
@@ -90,6 +88,8 @@ human_prompts = [
     "Give me all artworks whose name contains 'aleksa'",
     "Give me all artworks where author is 'aleksa'",
     "Give me all artworks related to fairies",
+    "Give me all artworks related to fairies and elves, and their locations",
+    "Show me artworks containing humans",
 ]
 
 for prompt in human_prompts:
