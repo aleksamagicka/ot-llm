@@ -64,6 +64,7 @@ follows, enclosed in backticks:
   }
 }
 ```
+
 This schema is focused on artworks and includes various properties such as the artist, description, art form and author, among others.
 There are other instances of this schema which you'll need to account for, as this isn't the only one, so don't use its values literally
 and try to match parts of the prompt to additionalValues if possible. If a specific term is requested, try to match it to a field by using contains.
@@ -90,6 +91,7 @@ human_prompts = [
     "Give me all artworks related to fairies",
     "Give me all artworks related to fairies and elves, and their locations",
     "Show me artworks containing humans",
+    "Show me artworks containing humans with black hair",
 ]
 
 for prompt in human_prompts:
