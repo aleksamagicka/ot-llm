@@ -62,6 +62,8 @@ def main_route():
             except:
                 yield "SPARQL query failed!"
 
+            yield "</br></br><a href='javascript:history.back();'>[Go Back]</a>"
+
         return Response(stream_with_context(stream_results()))
 
     return render_template("form.html")
