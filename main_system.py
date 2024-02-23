@@ -138,7 +138,7 @@ Do not include a markdown specification for the generated code.
 The question is:
 {prompt}"""
 
-chat = ChatOpenAI(model_name="gpt-3.5-turbo-1106", temperature=0)
+chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
 
 human_prompts = [
     "Give me all artworks whose name contains 'aleksa'",
@@ -164,22 +164,22 @@ dkg = DKG(node_provider, blockchain_provider)
 
 print(dkg.node.info)
 
-query_graph_result = dkg.graph.query(
-    """
-SELECT ?artwork ?name ?description ?image ?author
-WHERE {
-  ?artwork rdf:type schema:VisualArtwork;
-           schema:additionalProperty/schema:name ?property_name;
-           FILTER(CONTAINS(?property_name, "skin") || CONTAINS(?property_name, "eyes") || CONTAINS(?property_name, "attire") || CONTAINS(?property_name, "hair")).
-  
-  ?artwork schema:name ?name;
-           schema:description ?description;
-           schema:image ?image;
-           schema:author ?author.
-}
-    """,
-    repository="publicCurrent",
-)
+# query_graph_result = dkg.graph.query(
+#     """
+# SELECT ?artwork ?name ?description ?image ?author
+# WHERE {
+#   ?artwork rdf:type schema:VisualArtwork;
+#            schema:additionalProperty/schema:name ?property_name;
+#            FILTER(CONTAINS(?property_name, "skin") || CONTAINS(?property_name, "eyes") || CONTAINS(?property_name, "attire") || CONTAINS(?property_name, "hair")).
+#
+#   ?artwork schema:name ?name;
+#            schema:description ?description;
+#            schema:image ?image;
+#            schema:author ?author.
+# }
+#     """,
+#     repository="publicCurrent",
+# )
 
 #print(query_graph_result)
 #exit()
