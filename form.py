@@ -1,4 +1,5 @@
 # importing Flask and other modules
+import datetime
 import os
 import time
 
@@ -36,6 +37,10 @@ except:
     print("Error: couldn't connect to DKG node!")
     exit()
 
+def log_to_file(message):
+    log_file = open("logger.log", "a")
+    log_file.write(f"[{datetime.datetime.utcnow().isoformat()}] {message}\n")
+    log_file.close()
 
 @app.route('/', methods=["GET", "POST"])
 def main_route():
@@ -43,6 +48,9 @@ def main_route():
         query_text = request.form.get("query")
 
         def stream_results():
+            yield f"Input: {query_text}</br></br>"
+            log_to_file(f"Received input: [{query_text}]")
+
             yield 'Requesting SPARQL from GPT, please wait...</br></br>'
 
             messages = [
@@ -53,14 +61,19 @@ def main_route():
             response = chat(messages)
             cleaned_sparql = response.content.replace("```", "")
 
+            log_to_file(f"Received SPARQL code: [{cleaned_sparql}]")
+
             yield f"<code>{cleaned_sparql}</code>"
             yield '</br></br>SPARQL received. Querying DKG, please wait...</br></br>'
 
             try:
                 result = dkg.graph.query(cleaned_sparql, repository="publicCurrent")
                 yield f"<code>{result}</code>"
+
+                log_to_file(f"Received DKG result: {result}")
             except:
                 yield "SPARQL query failed!"
+                log_to_file(f"SPARQL query failed!")
 
             yield "</br></br><a href='javascript:history.back();'>[Go Back]</a>"
 
