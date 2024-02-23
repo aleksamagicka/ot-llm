@@ -1,22 +1,24 @@
 # importing Flask and other modules
-from flask import Flask, request, render_template
+import time
+
+from flask import Flask, request, render_template, Response, stream_with_context
 
 # Flask constructor
 app = Flask(__name__)
 
-
-# A decorator used to tell the application
-# which URL is associated function
 @app.route('/', methods=["GET", "POST"])
 def gfg():
     if request.method == "POST":
-        # getting input with name = fname in HTML form
         first_name = request.form.get("fname")
-        # getting input with name = lname in HTML form
         last_name = request.form.get("lname")
-        #return "Your name is " + first_name + " " + last_name
+        def stream_results():
+            yield 'Hello '
+            time.sleep(1)
+            yield request.form.get("fname")
+            time.sleep(1)
+            yield '!'
 
-        return render_template("form.html", name=first_name+last_name)
+        return Response(stream_with_context(stream_results()))
 
     return render_template("form.html")
 
