@@ -1,3 +1,9 @@
+"""
+TODO:
+isBasedOn? It doesn't know if it's empty or not
+additionalValues? They can be named whatever, it can't make up proper attribute names
+"""
+
 SPARQL_GENERATION_SELECT_TEMPLATE = """Task: Generate a SPARQL SELECT statement for querying a graph database.
 The schema in JSON-LD format that outlines the structure and relationships of the data you have to generate a query
 follows:
@@ -103,6 +109,8 @@ This schema is focused on artworks and includes various properties such as the a
 There are other instances of this schema which you'll need to account for, as this isn't the only one, so don't use its values literally.
 Try to match parts of the prompt to additionalValues if possible by using OPTIONAL, since they may not exist. If a specific term is requested, try to match it to a field by using CONTAINS.
 If a specific term is in plural, match it to a field by using CONTAINS for singular form.
+
+If isBasedOn is not empty, use it to retrieve the referenced artwork.
 
 If a specific term is requested, try to match it to the keywords array. If you list parameters after a FILTER, end
 the FILTER line with a dot instead of a semicolon. Always put FILTER statements last.
