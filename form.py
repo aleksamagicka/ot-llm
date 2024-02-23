@@ -6,15 +6,16 @@ from flask import Flask, request, render_template, Response, stream_with_context
 # Flask constructor
 app = Flask(__name__)
 
+
 @app.route('/', methods=["GET", "POST"])
 def gfg():
     if request.method == "POST":
-        first_name = request.form.get("fname")
-        last_name = request.form.get("lname")
+        query_text = request.form.get("query")
+
         def stream_results():
             yield 'Hello '
             time.sleep(1)
-            yield request.form.get("fname")
+            yield query_text
             time.sleep(1)
             yield '!'
 
