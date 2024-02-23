@@ -5,13 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="{{ url_for("gfg")}}" method="post">
+    <form action="{{ url_for("main_route")}}" method="post">
         <p><label for="query">Input your query:</label></p>
         <textarea id="query" name="query" rows="4" cols="50">Give me all artworks</textarea>
 
-        <button type="submit">Login</button>
-
-
+        <button type="submit">Query!</button>
 <h3>{{ name }}</h3>
 </body>
 </html>

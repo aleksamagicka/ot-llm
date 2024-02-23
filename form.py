@@ -38,7 +38,7 @@ except:
 
 
 @app.route('/', methods=["GET", "POST"])
-def gfg():
+def main_route():
     if request.method == "POST":
         query_text = request.form.get("query")
 
