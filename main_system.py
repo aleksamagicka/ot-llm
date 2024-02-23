@@ -18,8 +18,6 @@ from consts import SPARQL_GENERATION_SELECT_TEMPLATE
 
 load_dotenv(find_dotenv())
 
-chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
-
 human_prompts = [
     "Give me all artworks whose name contains 'aleksa'",
     "Give me all artworks where author is 'aleksa'",
@@ -34,16 +32,21 @@ human_prompts = [
     "Give me all artworks"
 ]
 
+chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+
 jwt_token = os.environ['jwt_token']
-node_provider = NodeHTTPProvider(os.environ('node_url'), jwt_token)
+node_provider = NodeHTTPProvider(os.environ['node_url'], jwt_token)
 blockchain_provider = BlockchainProvider(
     "mainnet",
     "otp:2043",
 )
 
 dkg = DKG(node_provider, blockchain_provider)
-
-print(dkg.node.info)
+try:
+    print(dkg.node.info)
+except:
+    print("Error: couldn't connect to DKG node!")
+    exit()
 
 # query_graph_result = dkg.graph.query(
 #     """
