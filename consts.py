@@ -60,7 +60,8 @@ If isBasedOn is not empty, use it to retrieve the referenced artwork.
 
 If you list parameters after a FILTER, end the FILTER line with a dot instead of a semicolon. Always put FILTER statements last.
 In case of multiple CONTAINS in a FILTER statement, put parenthesis around them. In filter statements, use '!' instead of NOT
-for negation. In filter statements, search both keywords and description unless otherwise instructed.
+for negation. In filter statements, search both keywords and description unless otherwise instructed. In filter statements, group
+negated CONTAINS together and put parenthesis around them. In filter statements, convert strings to lowercase in CONTAINS.
 
 Instructions:
 Use only the node types and properties provided in the schema.
