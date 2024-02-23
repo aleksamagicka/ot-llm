@@ -123,7 +123,7 @@ Try to match parts of the prompt to additionalValues if possible. If a specific 
 If a specific term is in plural, try to match it to a field by using contains for singular form and contains for plural form. 
 
 If a specific term is requested, try to match it to the keywords array. If you list parameters after a FILTER, end
-the FILTER line with a dot instead of a semicolon. Do not mark parameters as OPTIONAL.
+the FILTER line with a dot instead of a semicolon. Do not use OPTIONAL. Always put FILTER statements last.
 
 Instructions:
 Use only the node types and properties provided in the schema.
@@ -150,7 +150,8 @@ human_prompts = [
     "Show me artworks that are related to anime",
     "Show me some artwork on DKG with a flower motive",
     "Show me some artwork that can be described as 'cool'",
-    "Give me all artworks, their names, and descriptions from author with name Leonardo Da Vinci"
+    "Give me all artworks, their names, and descriptions from author with name Leonardo Da Vinci",
+    "Give me all artworks"
 ]
 
 jwt_token = os.environ['jwt_token']
@@ -169,20 +170,22 @@ print(dkg.node.info)
 # SELECT ?artwork ?name ?description ?image ?author
 # WHERE {
 #   ?artwork rdf:type schema:VisualArtwork;
-#            schema:additionalProperty/schema:name ?property_name;
-#            FILTER(CONTAINS(?property_name, "skin") || CONTAINS(?property_name, "eyes") || CONTAINS(?property_name, "attire") || CONTAINS(?property_name, "hair")).
+#            schema:additionalProperty/schema:name "attires" ;
+#            schema:additionalProperty/schema:value ?value ;
 #
-#   ?artwork schema:name ?name;
-#            schema:description ?description;
-#            schema:image ?image;
-#            schema:author ?author.
+#
+#   schema:name ?name;
+#   schema:description ?description;
+#   schema:image ?image;
+#   schema:author ?author.
+#   FILTER(CONTAINS(?value, "human"))
 # }
 #     """,
 #     repository="publicCurrent",
 # )
-
-#print(query_graph_result)
-#exit()
+#
+# print(query_graph_result)
+# exit()
 
 
 for prompt in human_prompts:
@@ -193,13 +196,13 @@ for prompt in human_prompts:
         HumanMessage(content=prompt)
     ]
     response = chat(messages)
+    cleaned_sparql = response.content.replace("```", "")
 
-    print(response.content, end='\n')
+    print(cleaned_sparql, end='\n')
     print("------------------------")
 
     sleep(30)
 
-    cleaned_sparql = response.content.replace("```", "")
     print(dkg.graph.query(cleaned_sparql, repository="publicCurrent"))
     print("------------------------------------------------------------------")
 
