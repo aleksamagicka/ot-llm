@@ -35,7 +35,7 @@ human_prompts = [
 ]
 
 jwt_token = os.environ['jwt_token']
-node_provider = NodeHTTPProvider("https://proxima-node-38.origin-trail.network:8900", jwt_token)
+node_provider = NodeHTTPProvider(os.environ('node_url'), jwt_token)
 blockchain_provider = BlockchainProvider(
     "mainnet",
     "otp:2043",
