@@ -19,6 +19,7 @@ load_dotenv(find_dotenv())
 
 human_prompts = [
     "Give me all artworks whose name contains 'aleksa'",
+    "Show me artworks where name contains mona",
     "Give me all artworks where author is 'aleksa'",
     "Give me all artworks related to fairies",
     "Give me all artworks related to fairies and elves, and their locations",
