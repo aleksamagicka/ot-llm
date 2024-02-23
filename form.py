@@ -8,6 +8,13 @@ from dotenv import find_dotenv, load_dotenv
 from flask import Flask, request, render_template, Response, stream_with_context
 from langchain_openai import ChatOpenAI
 
+from langchain.schema import (
+    HumanMessage,
+    SystemMessage
+)
+
+from consts import SPARQL_GENERATION_SELECT_TEMPLATE
+
 # Flask constructor
 app = Flask(__name__)
 
@@ -29,17 +36,31 @@ except:
     print("Error: couldn't connect to DKG node!")
     exit()
 
+
 @app.route('/', methods=["GET", "POST"])
 def gfg():
     if request.method == "POST":
         query_text = request.form.get("query")
 
         def stream_results():
-            yield 'Hello '
-            time.sleep(1)
-            yield query_text
-            time.sleep(1)
-            yield '!'
+            yield 'Requesting SPARQL from GPT, please wait...</br></br>'
+
+            messages = [
+                SystemMessage(content=SPARQL_GENERATION_SELECT_TEMPLATE),
+                HumanMessage(content=query_text)
+            ]
+
+            response = chat(messages)
+            cleaned_sparql = response.content.replace("```", "")
+
+            yield f"<code>{cleaned_sparql}</code>"
+            yield '</br></br>SPARQL received. Querying DKG, please wait...</br></br>'
+
+            try:
+                result = dkg.graph.query(cleaned_sparql, repository="publicCurrent")
+                yield f"<code>{result}</code>"
+            except:
+                yield "SPARQL query failed!"
 
         return Response(stream_with_context(stream_results()))
 

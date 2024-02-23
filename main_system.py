@@ -3,7 +3,6 @@ import os
 from time import sleep
 
 from langchain.schema import (
-    AIMessage,
     HumanMessage,
     SystemMessage
 )

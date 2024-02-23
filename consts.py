@@ -97,16 +97,15 @@ SELECT ?artwork ?name ?description ?image ?author WHERE {
   schema:author ?author;
 }
 
-
 Use that SPARQL query as inspiration for new queries. If you need to use CONTAINS in FILTER, do not convert to string using str.
 
 This schema is focused on artworks and includes various properties such as the artist, description, art form and author, among others.
 There are other instances of this schema which you'll need to account for, as this isn't the only one, so don't use its values literally.
-Try to match parts of the prompt to additionalValues if possible. If a specific term is requested, try to match it to a field by using CONTAINS.
-If a specific term is in plural, try to match it to a field by using contains for singular form and contains for plural form. 
+Try to match parts of the prompt to additionalValues if possible by using OPTIONAL, since they may not exist. If a specific term is requested, try to match it to a field by using CONTAINS.
+If a specific term is in plural, match it to a field by using CONTAINS for singular form.
 
 If a specific term is requested, try to match it to the keywords array. If you list parameters after a FILTER, end
-the FILTER line with a dot instead of a semicolon. Do not use OPTIONAL. Always put FILTER statements last.
+the FILTER line with a dot instead of a semicolon. Always put FILTER statements last.
 
 Instructions:
 Use only the node types and properties provided in the schema.
