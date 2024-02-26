@@ -15,6 +15,7 @@ from langchain.schema import (
 )
 
 from consts import SPARQL_GENERATION_SELECT_TEMPLATE
+import env
 
 # Flask constructor
 app = Flask(__name__)
@@ -29,10 +30,10 @@ def log_to_file(message):
     log_file.close()
 
 
-chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=env.OPENAI_API_KEY)
 
-jwt_token = os.environ['jwt_token']
-node_provider = NodeHTTPProvider(os.environ['node_url'], jwt_token)
+jwt_token = env.JWT_TOKEN
+node_provider = NodeHTTPProvider(env.NODE_URL, jwt_token)
 blockchain_provider = BlockchainProvider(
     "mainnet",
     "otp:2043",
