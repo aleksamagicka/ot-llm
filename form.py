@@ -21,6 +21,7 @@ app = Flask(__name__)
 
 load_dotenv(find_dotenv())
 
+print("Initializing...")
 
 def log_to_file(message):
     log_file = open("logger.log", "a")
@@ -40,9 +41,11 @@ blockchain_provider = BlockchainProvider(
 dkg = DKG(node_provider, blockchain_provider)
 try:
     print(dkg.node.info)
+    log_to_file(dkg.node.info)
 except:
-    error = "Error: couldn't connect to DKG node!"
-    log_to_file(error)
+    msg = "Error: couldn't connect to DKG node!"
+    print(msg)
+    log_to_file(msg)
     exit()
 
 
