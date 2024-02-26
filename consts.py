@@ -62,6 +62,24 @@ SELECT query where keywords are present in a FILTER clause.
 
 If isBasedOn is not empty, use it to retrieve the referenced artwork.
 
+When searching for a specific author, use a FILTER clause and do not include the author name in the list of parameters.
+
+An example query for searching artworks by a specific author looks like this:
+
+SELECT ?artwork ?name ?description ?image ?author WHERE {
+  ?artwork rdf:type schema:VisualArtwork;
+
+  schema:name ?name;
+  schema:description ?description;
+  schema:keywords ?keywords;
+  schema:image ?image;
+  schema:author ?author.
+  
+  FILTER(?author, "<author_query>")
+}
+
+You will need to replace <author_query> in the FILTER clause with the given author name, with double quotes around the author name.
+
 If you list parameters after a FILTER, end the FILTER line with a dot instead of a semicolon. Always put FILTER 
 statements last. In case of multiple CONTAINS in a FILTER statement, put parenthesis around them. In filter 
 statements, use '!' instead of NOT for negation. In filter statements, search both keywords and description unless 
