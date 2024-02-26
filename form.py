@@ -51,7 +51,7 @@ def main_route():
             yield f"Input: {query_text}</br></br>"
             log_to_file(f"Received input: [{query_text}]")
 
-            yield 'Requesting SPARQL from GPT, please wait...</br></br>'
+            yield 'Requesting SPARQL from GPT, please wait (can take a long time)...</br></br>'
 
             messages = [
                 SystemMessage(content=SPARQL_GENERATION_SELECT_TEMPLATE),
