@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>DKG SPARQL query explorer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <form action="{{ url_for("main_route")}}" method="post">
@@ -10,6 +11,21 @@
         <textarea id="query" name="query" rows="4" cols="50">Give me all artworks</textarea>
 
         <button type="submit">Query!</button>
-<h3>{{ name }}</h3>
+    </form>
+    <h3>{{ name }}</h3>
+
+    <a class="clickableText" href="#">Give me all artworks</a></br>
+    <a class="clickableText" href="#">Show me artworks where name contains mona</a></br>
+    <a class="clickableText" href="#">Give me all artworks related to fairies</a></br>
+    <a class="clickableText" href="#">Give me all artworks related to fairies and elves, and their locations</a></br>
+    <a class="clickableText" href="#">Show me artworks that are related to anime</a></br>
+    <a class="clickableText" href="#">Give me all artworks, their names, and descriptions from author with name Leonardo Da Vinci</a></br>
+
+<script>
+    $('.clickableText').on("click",function() {
+        var idbutton = $(this).text();
+        $('#query').val(idbutton);
+    });
+</script>
 </body>
 </html>
