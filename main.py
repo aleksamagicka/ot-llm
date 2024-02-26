@@ -80,8 +80,8 @@ def main_route():
 
                 log_to_file(f"Received DKG result: {result}")
             except Exception as error:
-                yield "SPARQL query failed! {error}"
-                log_to_file(f"SPARQL query failed! Stack trace: {error}")
+                yield f"SPARQL query failed! {repr(error)}"
+                log_to_file(f"SPARQL query failed! Stack trace: {repr(error)}")
 
             yield "</br></br><a href='javascript:history.back();'>[Go Back]</a>"
 
