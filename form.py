@@ -21,6 +21,13 @@ app = Flask(__name__)
 
 load_dotenv(find_dotenv())
 
+
+def log_to_file(message):
+    log_file = open("logger.log", "a")
+    log_file.write(f"[{datetime.datetime.utcnow().isoformat()}] {message}\n")
+    log_file.close()
+
+
 chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
 
 jwt_token = os.environ['jwt_token']
@@ -34,13 +41,10 @@ dkg = DKG(node_provider, blockchain_provider)
 try:
     print(dkg.node.info)
 except:
-    print("Error: couldn't connect to DKG node!")
+    error = "Error: couldn't connect to DKG node!"
+    log_to_file(error)
     exit()
 
-def log_to_file(message):
-    log_file = open("logger.log", "a")
-    log_file.write(f"[{datetime.datetime.utcnow().isoformat()}] {message}\n")
-    log_file.close()
 
 @app.route('/', methods=["GET", "POST"])
 def main_route():
