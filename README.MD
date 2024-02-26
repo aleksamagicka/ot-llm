@@ -2,7 +2,17 @@
 
 The main file is `main_system.py`, which uses GPT to generate SPARQL queries for the artwork data in the OriginTrail DKG.
 
-Examples of outputs:
+## How to run
+
+In a Terminal, assuming packages are installed:
+
+```bash
+python main.py
+```
+
+The server should be up at `127.0.0.1:5000`.
+
+## Examples of outputs
 
 ```
 Give me all artworks whose name contains 'aleksa':
