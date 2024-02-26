@@ -17,7 +17,7 @@ follows:
     "description": "",
     "artform": "",
     "author": {
-      "@type": "Person",
+      "@type": "",
       "name": ""
     },
     "image": "https://origintrail.io/images/otworld/b0645ab1219ee33.jpg",
@@ -25,7 +25,7 @@ follows:
       "",
     ],
     "publisher": {
-      "@type": "Person",
+      "@type": "",
       "name": ""
     },
     "isBasedOn": {
@@ -57,8 +57,8 @@ additionalValues as OPTIONAL, since they may not exist. If a specific term is re
 description and name using CONTAINS. All terms describing artworks should be considered. If a specific term is in 
 plural form, match it to a keywords and description by using CONTAINS with the singular form. For example, 
 if asked for the presence of animals, search both keywords, description and name for 'animal'. Do the same for all 
-such terms in the query. ALWAYS check presence of specific term in keywords. You MUST include keywords in every 
-SELECT query.
+such terms in the query. ALWAYS check presence of specific term in keywords. Include keywords in every 
+SELECT query where keywords are present in a FILTER clause.
 
 If isBasedOn is not empty, use it to retrieve the referenced artwork.
 
