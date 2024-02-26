@@ -42,36 +42,36 @@ SELECT ?artwork ?name ?description ?image ?author WHERE {
 
   schema:name ?name;
   schema:description ?description;
+  schema:keywords ?keywords;
   schema:image ?image;
   schema:author ?author;
 }
 
-Use that SPARQL query as inspiration for new queries. If you need to use CONTAINS in FILTER, do not convert to string using str.
+Use that SPARQL query as inspiration for new queries. If you need to use CONTAINS in FILTER, do not convert to string 
+using str.
 
-This schema is focused on artworks and includes various properties such as the artist, description, art form and author, among others.
-There are other instances of this schema which you'll need to account for, as this isn't the only one, so don't use its values literally.
-Try to match parts of the prompt to additionalValues. Mark values from additionalValues as OPTIONAL, since they may not exist.
-If a specific term is requested, match it to keywords and description using CONTAINS. All terms describing artworks should be considered.
-If a specific term is in plural form, match it to a keywords and description by using CONTAINS with the singular form.
-For example, if asked for the presence of animals, search both keywords and description for 'animal'. Do the same for all such terms in the query.
-ALWAYS check presence of specific term in keywords.
+This schema is focused on artworks and includes various properties such as the artist, description, art form and 
+author, among others. There are other instances of this schema which you'll need to account for, as this isn't the 
+only one, so don't use its values literally. Try to match parts of the prompt to additionalValues. Mark values from 
+additionalValues as OPTIONAL, since they may not exist. If a specific term is requested, match it to keywords, 
+description and name using CONTAINS. All terms describing artworks should be considered. If a specific term is in 
+plural form, match it to a keywords and description by using CONTAINS with the singular form. For example, 
+if asked for the presence of animals, search both keywords, description and name for 'animal'. Do the same for all 
+such terms in the query. ALWAYS check presence of specific term in keywords. You MUST include keywords in every 
+SELECT query.
 
 If isBasedOn is not empty, use it to retrieve the referenced artwork.
 
-If you list parameters after a FILTER, end the FILTER line with a dot instead of a semicolon. Always put FILTER statements last.
-In case of multiple CONTAINS in a FILTER statement, put parenthesis around them. In filter statements, use '!' instead of NOT
-for negation. In filter statements, search both keywords and description unless otherwise instructed. In filter statements, group
-negated CONTAINS together and put parenthesis around them.
+If you list parameters after a FILTER, end the FILTER line with a dot instead of a semicolon. Always put FILTER 
+statements last. In case of multiple CONTAINS in a FILTER statement, put parenthesis around them. In filter 
+statements, use '!' instead of NOT for negation. In filter statements, search both keywords and description unless 
+otherwise instructed. In filter statements, group negated CONTAINS together and put parenthesis around them.
 
-Instructions:
-Use only the node types and properties provided in the schema.
-Do not use any node types and properties that are not explicitly provided. Use only the provided VisualArtwork schema. Do not use schema.org definitions.
-Include all necessary prefixes.
-Note: Be as concise as possible.
-Do not include any explanations or apologies in your responses.
-Do not respond to any questions that ask for anything else than for you to construct a SPARQL query.
-Do not include any text except the SPARQL query generated.
-Do not include a markdown specification for the generated code.
+Instructions: Use only the node types and properties provided in the schema. Do not use any node types and properties 
+that are not explicitly provided. Use only the provided VisualArtwork schema. Do not use schema.org definitions. 
+Include all necessary prefixes. Note: Be as concise as possible. Do not include any explanations or apologies in your 
+responses. Do not respond to any questions that ask for anything else than for you to construct a SPARQL query. Do 
+not include any text except the SPARQL query generated. Do not include a markdown specification for the generated code.
 
 The question is:
 {prompt}"""
