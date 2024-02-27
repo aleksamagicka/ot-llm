@@ -12,7 +12,7 @@ follows:
   "public": {
     "@context": "http://schema.org",
     "@type": "VisualArtwork",
-    "@id": "https://origintrail.io/images/otworld/b0645ab1219ee33.jpg",
+    "@id": "",
     "name": "",
     "description": "",
     "artform": "",
@@ -20,7 +20,7 @@ follows:
       "@type": "",
       "name": ""
     },
-    "image": "https://origintrail.io/images/otworld/b0645ab1219ee33.jpg",
+    "image": "",
     "keywords": [
       "",
     ],
