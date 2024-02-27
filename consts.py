@@ -50,12 +50,12 @@ SELECT ?artwork ?name ?description ?image ?author WHERE {
 Use that SPARQL query as inspiration for new queries. If you need to use CONTAINS in FILTER, do not convert to string 
 using str.
 
-This schema is focused on artworks and includes various properties such as the artist, description, art form and 
+This schema is focused on artworks and includes various properties such as the artist, description, art form, keywords and 
 author, among others. There are other instances of this schema which you'll need to account for, as this isn't the 
 only one, so don't use its values literally. Try to match parts of the prompt to additionalValues. Mark values from 
 additionalValues as OPTIONAL, since they may not exist. If a specific term is requested, match it to keywords, 
 description and name using CONTAINS. All terms describing artworks should be considered. If a specific term is in 
-plural form, match it to a keywords and description by using CONTAINS with the singular form. For example, 
+plural form, match it to keywords and description by using CONTAINS with the singular form. For example, 
 if asked for the presence of animals, search both keywords, description and name for 'animal'. Do the same for all 
 such terms in the query. ALWAYS check presence of specific term in keywords. Include keywords in every 
 SELECT query where keywords are present in a FILTER clause.
@@ -63,6 +63,7 @@ SELECT query where keywords are present in a FILTER clause.
 If isBasedOn is not empty, use it to retrieve the referenced artwork.
 
 When searching for a specific author, use a FILTER clause and do not include the author name in the list of parameters.
+Always put FILTER clause after the parameters you're requesting in WHERE.
 
 An example query for searching artworks by a specific author looks like this:
 
@@ -78,11 +79,11 @@ SELECT ?artwork ?name ?description ?image ?author WHERE {
   FILTER(?author, "<author_query>")
 }
 
-You will need to replace <author_query> in the FILTER clause with the given author name, with double quotes around the author name.
+You will need to replace <author_query> in the FILTER clause with the given author name, with double quotes around it.
 
 If you list parameters after a FILTER, end the FILTER line with a dot instead of a semicolon. Always put FILTER 
 statements last. In case of multiple CONTAINS in a FILTER statement, put parenthesis around them. In filter 
-statements, use '!' instead of NOT for negation. In filter statements, search both keywords and description unless 
+statements, use '!' instead of NOT for negation. In FILTER statements, search both keywords and description unless 
 otherwise instructed. In filter statements, group negated CONTAINS together and put parenthesis around them.
 
 Instructions: Use only the node types and properties provided in the schema. Do not use any node types and properties 
