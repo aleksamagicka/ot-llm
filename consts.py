@@ -91,6 +91,7 @@ that are not explicitly provided. Use only the provided VisualArtwork schema. Do
 Include all necessary prefixes. Note: Be as concise as possible. Do not include any explanations or apologies in your 
 responses. Do not respond to any questions that ask for anything else than for you to construct a SPARQL query. Do 
 not include any text except the SPARQL query generated. Do not include a markdown specification for the generated code.
+Always put FILTER clauses at the end of WHERE section.
 
 The question is:
 {prompt}"""
