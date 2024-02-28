@@ -37,7 +37,7 @@ follows:
 
 An example SPARQL query that retrieves the artwork name, author, image and description looks like this:
 
-SELECT ?artwork ?name ?description ?image ?author WHERE {
+SELECT DISTINCT ?artwork ?name ?description ?image ?author WHERE {
   ?artwork rdf:type schema:VisualArtwork;
 
   schema:name ?name;
@@ -67,7 +67,7 @@ Always put FILTER clause after the parameters you're requesting in WHERE.
 
 An example query for searching artworks by a specific author looks like this:
 
-SELECT ?artwork ?name ?description ?image ?author WHERE {
+SELECT DISTINCT ?artwork ?name ?description ?image ?author WHERE {
   ?artwork rdf:type schema:VisualArtwork;
 
   schema:name ?name;
