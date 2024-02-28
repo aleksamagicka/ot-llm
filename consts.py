@@ -44,7 +44,7 @@ SELECT DISTINCT ?artwork ?name ?description ?image ?author WHERE {
   schema:description ?description;
   schema:keywords ?keywords;
   schema:image ?image;
-  schema:author ?author;
+  (schema:author/schema:name) ?author;
 }
 
 Use that SPARQL query as inspiration for new queries. If you need to use CONTAINS in FILTER, do not convert to string 
@@ -65,18 +65,18 @@ If isBasedOn is not empty, use it to retrieve the referenced artwork.
 When searching for a specific author, use a FILTER clause and do not include the author name in the list of parameters.
 Always put FILTER clause after the parameters you're requesting in WHERE.
 
-An example query for searching artworks by a specific author looks like this:
+An example query for searching artworks by a specific author name looks like this:
 
-SELECT DISTINCT ?artwork ?name ?description ?image ?author WHERE {
+SELECT DISTINCT ?artwork ?name ?description ?image ?authorName WHERE {
   ?artwork rdf:type schema:VisualArtwork;
 
   schema:name ?name;
   schema:description ?description;
   schema:keywords ?keywords;
   schema:image ?image;
-  schema:author ?author.
+  (schema:author/schema:name) ?authorName.
   
-  FILTER(?author, "<author_query>")
+  FILTER(?authorName, "<author_query>")
 }
 
 You will need to replace <author_query> in the FILTER clause with the given author name, with double quotes around it.
