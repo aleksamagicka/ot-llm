@@ -50,7 +50,7 @@ SELECT DISTINCT ?artwork ?name ?description ?image ?author ?ual WHERE {
 }
 
 Use that SPARQL query as inspiration for new queries. If you need to use CONTAINS in FILTER, do not convert to string 
-using str. Always include the GRAPH block as shown.
+using str. Always include the GRAPH block as shown. Always include ?ual in the SELECT query.
 
 This schema is focused on artworks and includes various properties such as the artist, description, art form, keywords and 
 author, among others. There are other instances of this schema which you'll need to account for, as this isn't the 
