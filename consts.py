@@ -35,20 +35,22 @@ follows:
   }
 }
 
-An example SPARQL query that retrieves the artwork name, author, image and description looks like this:
+An example SPARQL query that retrieves the artwork name, author, image, ual and description looks like this:
 
-SELECT DISTINCT ?artwork ?name ?description ?image ?author WHERE {
-  ?artwork rdf:type schema:VisualArtwork;
-
-  schema:name ?name;
-  schema:description ?description;
-  schema:keywords ?keywords;
-  schema:image ?image;
-  (schema:author/schema:name) ?author;
+SELECT DISTINCT ?artwork ?name ?description ?image ?author ?ual WHERE {
+  ?artwork rdf:type schema:VisualArtwork.
+  GRAPH ?g {
+      ?artwork schema:name ?name;
+      schema:description ?description;
+      schema:keywords ?keywords;
+      schema:image ?image;
+      (schema:author/schema:name) ?author;
+  }
+  ?ual schema:assertion ?g.
 }
 
 Use that SPARQL query as inspiration for new queries. If you need to use CONTAINS in FILTER, do not convert to string 
-using str.
+using str. Always include the GRAPH block as shown.
 
 This schema is focused on artworks and includes various properties such as the artist, description, art form, keywords and 
 author, among others. There are other instances of this schema which you'll need to account for, as this isn't the 
@@ -60,23 +62,23 @@ if asked for the presence of animals, search both keywords, description and name
 such terms in the query. ALWAYS check presence of specific term in keywords. Include keywords in every 
 SELECT query where keywords are present in a FILTER clause.
 
-If isBasedOn is not empty, use it to retrieve the referenced artwork.
-
 When searching for a specific author, use a FILTER clause and do not include the author name in the list of parameters.
 Always put FILTER clause after the parameters you're requesting in WHERE.
 
 An example query for searching artworks by a specific author name looks like this:
 
-SELECT DISTINCT ?artwork ?name ?description ?image ?authorName WHERE {
-  ?artwork rdf:type schema:VisualArtwork;
-
-  schema:name ?name;
+SELECT DISTINCT ?artwork ?name ?description ?image ?authorName ?ual WHERE {
+  ?artwork rdf:type schema:VisualArtwork.
+GRAPH ?g {
+  ?artwork schema:name ?name;
   schema:description ?description;
   schema:keywords ?keywords;
   schema:image ?image;
   (schema:author/schema:name) ?authorName.
   
   FILTER(?authorName, "<author_query>")
+ }
+ ?ual schema:assertion ?g.
 }
 
 You will need to replace <author_query> in the FILTER clause with the given author name, with double quotes around it.

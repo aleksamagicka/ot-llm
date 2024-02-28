@@ -50,8 +50,17 @@ except:
 
 query_graph_result = dkg.graph.query(
     """
-SELECT ?artwork ?name ?description WHERE {
-  ?artwork a schema:VisualArtwork.
+SELECT DISTINCT ?artwork ?name ?description ?image ?author ?ual WHERE {
+  ?artwork rdf:type schema:VisualArtwork.
+    GRAPH ?g {
+    ?artwork schema:name ?name;
+    schema:description ?description;
+    schema:keywords ?keywords;
+    schema:image ?image;
+    (schema:author/schema:name) ?author.
+    FILTER(CONTAINS(?keywords, "anime"))
+  }
+  ?ual schema:assertion ?g.
 }
     """,
     repository="privateCurrent",
