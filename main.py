@@ -75,7 +75,7 @@ def main_route():
             yield '</br></br>SPARQL received. Querying DKG, please wait...</br></br>'
 
             try:
-                result = dkg.graph.query(cleaned_sparql, repository="publicCurrent")
+                result = dkg.graph.query(cleaned_sparql, repository="privateCurrent")
                 yield f"<code>{result}</code>"
 
                 log_to_file(f"Received DKG result: {result}")

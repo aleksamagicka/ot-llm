@@ -48,27 +48,17 @@ except:
     print("Error: couldn't connect to DKG node!")
     exit()
 
-# query_graph_result = dkg.graph.query(
-#     """
-# SELECT ?artwork ?name ?description ?image ?author
-# WHERE {
-#   ?artwork rdf:type schema:VisualArtwork;
-#            schema:additionalProperty/schema:name "attires" ;
-#            schema:additionalProperty/schema:value ?value ;
-#
-#
-#   schema:name ?name;
-#   schema:description ?description;
-#   schema:image ?image;
-#   schema:author ?author.
-#   FILTER(CONTAINS(?value, "human"))
-# }
-#     """,
-#     repository="publicCurrent",
-# )
-#
-# print(query_graph_result)
-# exit()
+query_graph_result = dkg.graph.query(
+    """
+SELECT ?artwork ?name ?description WHERE {
+  ?artwork a schema:VisualArtwork.
+}
+    """,
+    repository="privateCurrent",
+)
+
+print(query_graph_result)
+exit()
 
 
 for prompt in human_prompts:
