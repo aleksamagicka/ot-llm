@@ -74,10 +74,10 @@ def main_route():
             yield f"<code>{cleaned_sparql}</code>"
             yield '</br></br>SPARQL received. Querying DKG, please wait...</br></br>'
 
-            yield "<a href='javascript:history.back();'>[Go Back]</a></br></br>"
-
             try:
+                yield "<a href='javascript:history.back();'>[Go Back]</a></br></br>"
                 result = dkg.graph.query(cleaned_sparql, repository="privateCurrent")
+                yield f"Number of results: {len(result)}</br></br>"
                 yield f"<code>{result}</code>"
 
                 log_to_file(f"Received DKG result: {result}")
