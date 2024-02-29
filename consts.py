@@ -47,23 +47,19 @@ SELECT DISTINCT ?artwork ?name ?description ?image ?author ?ual WHERE {
       (schema:author/schema:name) ?author;
   }
   ?ual schema:assertion ?g.
-  FILTER(CONTAINS(str(?ual), "2043))
 }
 
 Use that SPARQL query as inspiration for new queries. If you need to use CONTAINS in FILTER, do not convert to string 
-using str. Always include the GRAPH block as shown. Always include ?ual in the SELECT query. Always check if str(ual) in 
-contains "2043".
+using str. Always include the GRAPH block as shown. Always include ?ual in the SELECT query.
 
 This schema is focused on artworks and includes various properties such as the artist, description, art form, 
 keywords and author, among others. There are other instances of this schema which you'll need to account for, 
 as this isn't the only one, so don't use its values literally. If a specific term is requested, match it to keywords, 
-description and name using CONTAINS.
-
-When matching to description or name, match in lowercase using LCASE. All terms describing artworks should be 
-considered. If a specific term is in plural form, match it to keywords and description by using CONTAINS with the 
-singular form. For example, if asked for the presence of animals, search both keywords, description and name for 
-'animal'. Do the same for all such terms in the query. ALWAYS check presence of specific term in keywords. Include 
-keywords in every SELECT query where keywords are present in a FILTER clause.
+description and name using CONTAINS. When matching to description or name, match in lowercase using LCASE. All terms 
+describing artworks should be considered. If a specific term is in plural form, match it to keywords and description 
+by using CONTAINS with the singular form. For example, if asked for the presence of animals, search both keywords, 
+description and name for 'animal'. Do the same for all such terms in the query. ALWAYS check presence of specific 
+term in keywords. Include keywords in every SELECT query where keywords are present in a FILTER clause.
 
 When searching for a specific author, use a FILTER clause and do not include the author name in the list of parameters.
 Always put FILTER clause after the parameters you're requesting in WHERE.
