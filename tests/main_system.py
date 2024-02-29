@@ -50,9 +50,20 @@ except:
 
 query_graph_result = dkg.graph.query(
     """
-SELECT distinct ?artwork ?name ?ual WHERE { ?artwork a schema:VisualArtwork ; GRAPH ?g { ?artwork schema:name ?name . }
+PREFIX schema: <http://schema.org/>
  
-?ual schema:assertion ?g FILTER(CONTAINS(str(?ual), "2043") && CONTAINS(LCASE(?name), "mona")) }
+SELECT DISTINCT ?artwork ?name ?description ?authorName ?ual WHERE {
+  GRAPH ?g {
+     ?artwork a schema:VisualArtwork;
+      schema:name ?name;
+      schema:description ?description;
+      schema:keywords ?keywords;
+      schema:image ?image;
+      (schema:author/schema:name) ?authorName;
+  }
+  ?ual schema:assertion ?g.
+  filter(!regex(str(?ual), "^did:dkg:otp/") && contains(?authorName, "Leonardo"))
+}
     """,
     repository="privateCurrent",
 )
