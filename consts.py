@@ -35,22 +35,26 @@ follows:
   }
 }
 
-An example SPARQL query that retrieves the artwork name, author, image, ual and description looks like this:
+An example SPARQL query that retrieves the artwork name, author, image, ual and description looks like this in markdown format:
 
+```
 SELECT DISTINCT ?artwork ?name ?description ?image ?author ?ual WHERE {
-  ?artwork rdf:type schema:VisualArtwork.
   GRAPH ?g {
-      ?artwork schema:name ?name;
+      ?artwork a schema:VisualArtwork;
+      schema:name ?name;
       schema:description ?description;
       schema:keywords ?keywords;
       schema:image ?image;
       (schema:author/schema:name) ?author;
   }
   ?ual schema:assertion ?g.
+  filter(!regex(str(?ual), "^did:dkg:otp/") )
 }
+```
 
 Use that SPARQL query as inspiration for new queries. If you need to use CONTAINS in FILTER, do not convert to string 
-using str. Always include the GRAPH block as shown. Always include ?ual in the SELECT query.
+using str. Always include the GRAPH block as shown. Always include ?ual in the SELECT query. Always include the filter
+with the regex as in the example.
 
 This schema is focused on artworks and includes various properties such as the artist, description, art form, 
 keywords and author, among others. There are other instances of this schema which you'll need to account for, 
@@ -67,9 +71,9 @@ Always put FILTER clause after the parameters you're requesting in WHERE.
 An example query for searching artworks by a specific author name looks like this:
 
 SELECT DISTINCT ?artwork ?name ?description ?image ?authorName ?ual WHERE {
-  ?artwork rdf:type schema:VisualArtwork.
 GRAPH ?g {
-  ?artwork schema:name ?name;
+  ?artwork a schema:VisualArtwork;
+  schema:name ?name;
   schema:description ?description;
   schema:keywords ?keywords;
   schema:image ?image;
@@ -78,6 +82,7 @@ GRAPH ?g {
   FILTER(?authorName, "<author_query>")
  }
  ?ual schema:assertion ?g.
+ filter(!regex(str(?ual), "^did:dkg:otp/") )
 }
 
 You will need to replace <author_query> in the FILTER clause with the given author name, with double quotes around it.
