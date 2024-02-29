@@ -68,6 +68,10 @@ def main_route():
 
             response = chat(messages)
             cleaned_sparql = response.content.replace("```", "")
+            if "PREFIX schema:" in cleaned_sparql:
+                cleaned_sparql = cleaned_sparql.replace("PREFIX schema:", "PREFIX schema: <http://schema.org/>")
+            else:
+                cleaned_sparql = "PREFIX schema: <http://schema.org/> " + cleaned_sparql
 
             log_to_file(f"Received SPARQL code: [{cleaned_sparql}]")
 
