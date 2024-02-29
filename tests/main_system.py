@@ -50,23 +50,15 @@ except:
 
 query_graph_result = dkg.graph.query(
     """
-SELECT DISTINCT ?artwork ?name ?description ?image ?author ?ual WHERE {
-  ?artwork rdf:type schema:VisualArtwork.
-    GRAPH ?g {
-    ?artwork schema:name ?name;
-    schema:description ?description;
-    schema:keywords ?keywords;
-    schema:image ?image;
-    (schema:author/schema:name) ?author.
-    FILTER(CONTAINS(?keywords, "anime"))
-  }
-  ?ual schema:assertion ?g.
-}
+SELECT distinct ?artwork ?name ?ual WHERE { ?artwork a schema:VisualArtwork ; GRAPH ?g { ?artwork schema:name ?name . }
+ 
+?ual schema:assertion ?g FILTER(CONTAINS(str(?ual), "2043") && CONTAINS(LCASE(?name), "mona")) }
     """,
     repository="privateCurrent",
 )
 
 print(query_graph_result)
+print(f"length: {len(query_graph_result)}")
 exit()
 
 
