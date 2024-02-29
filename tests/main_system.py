@@ -60,9 +60,10 @@ SELECT DISTINCT ?artwork ?name ?description ?authorName ?ual WHERE {
       schema:keywords ?keywords;
       schema:image ?image;
       (schema:author/schema:name) ?authorName;
+      FILTER(((CONTAINS(LCASE(?keywords), "fairy")) || (CONTAINS(LCASE(?description), "fairy"))) || (CONTAINS(LCASE(?name), "fairy")))
   }
   ?ual schema:assertion ?g.
-  filter(!regex(str(?ual), "^did:dkg:otp/") && contains(?authorName, "Leonardo"))
+  filter(!regex(str(?ual), "^did:dkg:otp/"))
 }
     """,
     repository="privateCurrent",
