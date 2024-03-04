@@ -35,17 +35,19 @@ follows:
   }
 }
 
-An example SPARQL query that retrieves the artwork name, author, image, ual and description looks like this in markdown format:
+An example SPARQL query that retrieves the artwork name, author, image, ual, description and other attributes
+looks like this in markdown format:
 
 ```
-SELECT DISTINCT ?artwork ?name ?description ?image ?author ?ual WHERE {
+SELECT DISTINCT ?artwork ?artworkName ?description ?artform ?imageURL ?authorName ?ual WHERE {
   GRAPH ?g {
       ?artwork a schema:VisualArtwork;
-      schema:name ?name;
+      schema:name ?artworkName;
       schema:description ?description;
       schema:keywords ?keywords;
-      schema:image ?image;
-      (schema:author/schema:name) ?author;
+      schema:image ?imageURL;
+      schema:artform ?artform;
+      (schema:author/schema:name) ?authorName;
   }
   ?ual schema:assertion ?g.
   filter(!regex(str(?ual), "^did:dkg:otp/") )
