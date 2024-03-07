@@ -165,3 +165,27 @@ Seems to work better without these:
       },
     ]
 """
+
+IS_ARTWORK_RELATED_PROMPT="""
+Task: determine whether the given prompt mentions art, artworks, or is requesting information about artworks, or
+contains word artwork or a synonym, or it's general motive is related to artworks.
+Sample queries that are related to artworks are as follows and should be answered YES, enclosed in quotes are as follows:
+
+"Give me all artworks related to fairies",
+"Give me all artworks related to fairies and elves, and their locations",
+"Show me artworks containing humans",
+"Show me artworks containing humans with black hair",
+"Show me artworks that are related to anime",
+"Show me some artwork on DKG with a flower motive",
+"Show me some artwork that can be described as 'cool'",
+"Give me all artworks, their names, and descriptions from author with name Leonardo Da Vinci",
+"Give me all artworks"
+
+Instructions:
+Output YES or NO whether the given prompt matches the rules.
+Do not include any explanations or apologies in your responses. Do not respond to any questions that ask for anything
+else than for you to output a percentage. Do not include a markdown specification. Only include YES or NO in your answer.
+
+The prompt is:
+{prompt}
+"""
